@@ -1,6 +1,6 @@
 var _jsonix_factory = function(_jsonix_xmldom, _jsonix_xmlhttprequest, _jsonix_fs)
 {
-	// Complete Jsonix script is included below 
+	// Complete Jsonix script is included below
 var Jsonix = {
 	singleFile : true
 };
@@ -31,7 +31,7 @@ Jsonix.Util.extend = function(destination, source) {
 
 		// REWORK
 		// Node.js
-		sourceIsEvt = typeof window !== 'undefined' && window !== null && typeof window.Event === "function" && source instanceof window.Event;
+		var sourceIsEvt = typeof window !== 'undefined' && window !== null && typeof window.Event === "function" && source instanceof window.Event;
 
 		if (!sourceIsEvt && source.hasOwnProperty && source.hasOwnProperty('toString')) {
 			destination.toString = source.toString;
@@ -446,7 +446,7 @@ Jsonix.Util.Type = {
 		if (Jsonix.Util.Type.isRegExp(a) && Jsonix.Util.Type.isRegExp(b)) {
 			return a.source === b.source && a.global === b.global && a.ignoreCase === b.ignoreCase && a.multiline === b.multiline;
 		}
-		
+
 		if (Jsonix.Util.Type.isNode(a) && Jsonix.Util.Type.isNode(b))
 		{
 			var aSerialized = Jsonix.DOM.serialize(a);
@@ -466,7 +466,7 @@ Jsonix.Util.Type = {
 				return true;
 			}
 		}
-		
+
 		// If a is not an object by this point, we can't handle it.
 		if (atype !== 'object') {
 			return false;
@@ -547,7 +547,7 @@ Jsonix.Util.Type = {
 				}
 			}
 			return defaultValue;
-			
+
 		}
 	}
 };
@@ -1310,7 +1310,7 @@ Jsonix.XML.Input = Jsonix.Class({
 		    numberOfOpenTags += (et === Jsonix.XML.Input.START_ELEMENT) ? 1 : -1;
 		  } while (numberOfOpenTags > 0);
 		return et;
-	},	
+	},
 	getElementText : function() {
 		if (this.eventType != 1) {
 			throw new Error("Parser must be on START_ELEMENT to read next text.");
@@ -1488,7 +1488,7 @@ Jsonix.XML.Input = Jsonix.Class({
 					}
 				}
 			}
-		}		
+		}
 	},
 	popNS : function () {
 		this.pns.pop();
@@ -2137,7 +2137,7 @@ Jsonix.Binding.Unmarshaller.Simplified = Jsonix.Class(Jsonix.Binding.Unmarshalle
 	CLASS_NAME : 'Jsonix.Binding.Unmarshaller.Simplified'
 });
 Jsonix.Model.TypeInfo = Jsonix.Class({
-	module: null,			
+	module: null,
 	name : null,
 	baseTypeInfo : null,
 	initialize : function() {
@@ -2174,22 +2174,22 @@ Jsonix.Model.ClassInfo = Jsonix
 				var n = mapping.name||mapping.n||undefined;
 				Jsonix.Util.Ensure.ensureString(n);
 				this.name = n;
-				
+
 				var ln = mapping.localName||mapping.ln||null;
 				this.localName = ln;
 
 				var dens = mapping.defaultElementNamespaceURI||mapping.dens||mapping.targetNamespace||mapping.tns||'';
 				this.defaultElementNamespaceURI = dens;
-				
+
 				var tns =  mapping.targetNamespace||mapping.tns||mapping.defaultElementNamespaceURI||mapping.dens||this.defaultElementNamespaceURI;
 				this.targetNamespace = tns;
 
 				var dans = mapping.defaultAttributeNamespaceURI||mapping.dans||'';
 				this.defaultAttributeNamespaceURI = dans;
-				
+
 				var bti = mapping.baseTypeInfo||mapping.bti||null;
 				this.baseTypeInfo = bti;
-				
+
 				var inF = mapping.instanceFactory||mapping.inF||undefined;
 				if (Jsonix.Util.Type.exists(inF)) {
 					// TODO: should we support instanceFactory as functions?
@@ -2197,9 +2197,9 @@ Jsonix.Model.ClassInfo = Jsonix
 					Jsonix.Util.Ensure.ensureFunction(inF);
 					this.instanceFactory = inF;
 				}
-				
+
 				var tn = mapping.typeName||mapping.tn||undefined;
-				
+
 				if (Jsonix.Util.Type.exists(tn))
 				{
 					if (Jsonix.Util.Type.isString(tn))
@@ -2214,14 +2214,14 @@ Jsonix.Model.ClassInfo = Jsonix
 				{
 					this.typeName = new Jsonix.XML.QName(tns, ln);
 				}
-				
+
 				this.properties = [];
 				this.propertiesMap = {};
 				var ps = mapping.propertyInfos||mapping.ps||[];
 				Jsonix.Util.Ensure.ensureArray(ps);
 				for ( var index = 0; index < ps.length; index++) {
 					this.p(ps[index]);
-				}				
+				}
 			},
 			getPropertyInfoByName : function(name) {
 				return this.propertiesMap[name];
@@ -2266,15 +2266,15 @@ Jsonix.Model.ClassInfo = Jsonix
 			unmarshal : function(context, input) {
 				this.build(context);
 				var result;
-				
+
 				if (this.instanceFactory) {
 					result = new this.instanceFactory();
 				}
 				else
 				{
-					result = { TYPE_NAME : this.name }; 
+					result = { TYPE_NAME : this.name };
 				}
-				
+
 				if (input.eventType !== 1) {
 					throw new Error("Parser must be on START_ELEMENT to read a class info.");
 				}
@@ -2565,14 +2565,14 @@ Jsonix.Model.EnumLeafInfo = Jsonix.Class(Jsonix.Model.TypeInfo, {
 	initialize : function(mapping) {
 		Jsonix.Model.TypeInfo.prototype.initialize.apply(this, []);
 		Jsonix.Util.Ensure.ensureObject(mapping);
-		
+
 		var n = mapping.name||mapping.n||undefined;
 		Jsonix.Util.Ensure.ensureString(n);
 		this.name = n;
-		
+
 		var bti = mapping.baseTypeInfo||mapping.bti||'String';
 		this.baseTypeInfo = bti;
-		
+
 		var vs = mapping.values||mapping.vs||undefined;
 		Jsonix.Util.Ensure.ensureExists(vs);
 		if (!(Jsonix.Util.Type.isObject(vs) || Jsonix.Util.Type.isArray(vs))) {
@@ -2581,7 +2581,7 @@ Jsonix.Model.EnumLeafInfo = Jsonix.Class(Jsonix.Model.TypeInfo, {
 		else
 		{
 			this.entries = vs;
-		}		
+		}
 	},
 	build : function(context) {
 		if (!this.built) {
@@ -2717,7 +2717,7 @@ Jsonix.Model.EnumLeafInfo = Jsonix.Class(Jsonix.Model.TypeInfo, {
 	CLASS_NAME : 'Jsonix.Model.EnumLeafInfo'
 });
 Jsonix.Model.ElementInfo = Jsonix.Class({
-	module: null,			
+	module: null,
 	elementName : null,
 	typeInfo : null,
 	substitutionHead : null,
@@ -2725,10 +2725,10 @@ Jsonix.Model.ElementInfo = Jsonix.Class({
 	built : false,
 	initialize : function(mapping) {
 		Jsonix.Util.Ensure.ensureObject(mapping);
-		
+
 		var dens = mapping.defaultElementNamespaceURI||mapping.dens||'';
 		this.defaultElementNamespaceURI = dens;
-		
+
 		var en = mapping.elementName || mapping.en||undefined;
 		if (Jsonix.Util.Type.isObject(en)) {
 			this.elementName = Jsonix.XML.QName.fromObject(en);
@@ -2736,13 +2736,13 @@ Jsonix.Model.ElementInfo = Jsonix.Class({
 			Jsonix.Util.Ensure.ensureString(en);
 			this.elementName = new Jsonix.XML.QName(this.defaultElementNamespaceURI, en);
 		}
-		
+
 		var ti = mapping.typeInfo||mapping.ti||'String';
 		this.typeInfo = ti;
-		
+
 		var sh = mapping.substitutionHead||mapping.sh||null;
 		this.substitutionHead = sh;
-		
+
 		var sc = mapping.scope||mapping.sc||null;
 		this.scope = sc;
 	},
@@ -4101,7 +4101,7 @@ Jsonix.Schema.XSD.AnySimpleType = Jsonix.Class(Jsonix.Model.TypeInfo, {
 	typeName : Jsonix.Schema.XSD.qname('anySimpleType'),
 	initialize : function() {
 		Jsonix.Model.TypeInfo.prototype.initialize.apply(this, []);
-	},	
+	},
 	print : function(value, context, output, scope) {
 		return value;
 	},
@@ -4396,7 +4396,7 @@ Jsonix.Schema.XSD.Base64Binary = Jsonix.Class(Jsonix.Schema.XSD.AnySimpleType, {
 	},
 	decode : function(text) {
 
-		input = text.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+		var input = text.replace(/[^A-Za-z0-9\+\/\=]/g, "");
 
 		var length = Math.floor(input.length / 4 * 3);
 		if (input.charAt(input.length - 1) === "=") {
@@ -5566,13 +5566,13 @@ Jsonix.Schema.XSD.TimeAsDate = Jsonix.Class(Jsonix.Schema.XSD.Calendar, {
 				}));
 			} else {
 				var timezoneHours = Math.ceil(-correctedTime / 3600000);
-				
+
 				var correctedTimeInSeconds = correctedValue.getSeconds() +
 					correctedValue.getMinutes() * 60 +
 					correctedValue.getHours() * 3600 +
 					timezoneHours * 3600 -
 					timezone * 60;
-				
+
 				return this.printTime(new Jsonix.XML.Calendar({
 					hour : correctedTimeInSeconds % 86400,
 					minute : correctedTimeInSeconds % 3600,
@@ -5653,7 +5653,7 @@ Jsonix.Schema.XSD.DateAsDate = Jsonix.Class(Jsonix.Schema.XSD.Calendar, {
 		localDate.setMinutes(0);
 		localDate.setSeconds(0);
 		localDate.setMilliseconds(0);
-		
+
 		// Original timezone is unknown
 		if (value.originalTimezone === null)
 		{
@@ -5857,21 +5857,21 @@ Jsonix.Context = Jsonix
 					Jsonix.Util.Ensure.ensureObject(options);
 					if (Jsonix.Util.Type
 							.isObject(options.namespacePrefixes)) {
-						this.namespacePrefixes = 
+						this.namespacePrefixes =
 							Jsonix.Util.Type.cloneObject(options.namespacePrefixes, {});
 					}
 					if (Jsonix.Util.Type
 							.isBoolean(options.supportXsiType)) {
-						this.supportXsiType = options.supportXsiType; 
+						this.supportXsiType = options.supportXsiType;
 					}
 				}
-				
+
 				// Initialize prefix/namespace mapping
 				for (var ns in this.namespacePrefixes)
 				{
 					if (this.namespacePrefixes.hasOwnProperty(ns))
 					{
-						p = this.namespacePrefixes[ns];
+						var p = this.namespacePrefixes[ns];
 						this.prefixNamespaces[p] = ns;
 					}
 				}
@@ -5894,7 +5894,7 @@ Jsonix.Context = Jsonix
 					module = mapping;
 				} else {
 					mapping = Jsonix.Util.Type.cloneObject(mapping);
-					module = new this.mappingStyle.module(mapping, 
+					module = new this.mappingStyle.module(mapping,
 					{
 						mappingStyle : this.mappingStyle
 					});
@@ -6139,35 +6139,4 @@ Jsonix.Context = Jsonix
 	return { Jsonix: Jsonix };
 };
 
-// If the require function exists ...
-if (typeof require === 'function') {
-	// ... but the define function does not exists
-	if (typeof define !== 'function') {
-		// Load the define function via amdefine
-		var define = require('amdefine')(module);
-		// If we're not in browser
-		if (typeof window === 'undefined')
-		{
-			// Require xmldom, xmlhttprequest and fs
-			define(["xmldom", "xmlhttprequest", "fs"], _jsonix_factory);
-		}
-		else
-		{
-			// We're probably in browser, maybe browserify
-			// Do not require xmldom, xmlhttprequest as they'r provided by the browser
-			// Do not require fs since file system is not available anyway
-			define([], _jsonix_factory);
-		}
-	}
-	else {
-		// Otherwise assume we're in the browser/RequireJS environment
-		// Load the module without xmldom and xmlhttprequests dependencies
-		define([], _jsonix_factory);
-	}
-}
-// If the require function does not exists, we're not in Node.js and therefore in browser environment
-else
-{
-	// Just call the factory and set Jsonix as global.
-	var Jsonix = _jsonix_factory().Jsonix;
-}
+module.exports = _jsonix_factory(require('xmldom'), require('xmlhttprequest'), require('fs'));

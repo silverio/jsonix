@@ -1,12 +1,12 @@
 var _jsonix_factory = function(_jsonix_xmldom, _jsonix_xmlhttprequest, _jsonix_fs)
 {
-	// Complete Jsonix script is included below 
+	// Complete Jsonix script is included below
 var Jsonix={singleFile:true};
 Jsonix.Util={};
 Jsonix.Util.extend=function(f,g){f=f||{};
 if(g){for(var h in g){var e=g[h];
 if(e!==undefined){f[h]=e
-}}sourceIsEvt=typeof window!=="undefined"&&window!==null&&typeof window.Event==="function"&&g instanceof window.Event;
+}}var sourceIsEvt=typeof window!=="undefined"&&window!==null&&typeof window.Event==="function"&&g instanceof window.Event;
 if(!sourceIsEvt&&g.hasOwnProperty&&g.hasOwnProperty("toString")){f.toString=g.toString
 }}return f
 };
@@ -2378,7 +2378,7 @@ this.scopedElementInfosMap={};
 if(Jsonix.Util.Type.exists(l)){Jsonix.Util.Ensure.ensureObject(l);
 if(Jsonix.Util.Type.isObject(l.namespacePrefixes)){this.namespacePrefixes=Jsonix.Util.Type.cloneObject(l.namespacePrefixes,{})
 }if(Jsonix.Util.Type.isBoolean(l.supportXsiType)){this.supportXsiType=l.supportXsiType
-}}for(var j in this.namespacePrefixes){if(this.namespacePrefixes.hasOwnProperty(j)){p=this.namespacePrefixes[j];
+}}for(var j in this.namespacePrefixes){if(this.namespacePrefixes.hasOwnProperty(j)){var p=this.namespacePrefixes[j];
 this.prefixNamespaces[p]=j
 }}if(Jsonix.Util.Type.exists(i)){Jsonix.Util.Ensure.ensureArray(i);
 var g,h,k;
@@ -2479,35 +2479,4 @@ if(Jsonix.Util.Type.isString(f)){return f
 	return { Jsonix: Jsonix };
 };
 
-// If the require function exists ...
-if (typeof require === 'function') {
-	// ... but the define function does not exists
-	if (typeof define !== 'function') {
-		// Load the define function via amdefine
-		var define = require('amdefine')(module);
-		// If we're not in browser
-		if (typeof window === 'undefined')
-		{
-			// Require xmldom, xmlhttprequest and fs
-			define(["xmldom", "xmlhttprequest", "fs"], _jsonix_factory);
-		}
-		else
-		{
-			// We're probably in browser, maybe browserify
-			// Do not require xmldom, xmlhttprequest as they'r provided by the browser
-			// Do not require fs since file system is not available anyway
-			define([], _jsonix_factory);
-		}
-	}
-	else {
-		// Otherwise assume we're in the browser/RequireJS environment
-		// Load the module without xmldom and xmlhttprequests dependencies
-		define([], _jsonix_factory);
-	}
-}
-// If the require function does not exists, we're not in Node.js and therefore in browser environment
-else
-{
-	// Just call the factory and set Jsonix as global.
-	var Jsonix = _jsonix_factory().Jsonix;
-}
+module.exports = _jsonix_factory(require('xmldom'), require('xmlhttprequest'), require('fs'));
