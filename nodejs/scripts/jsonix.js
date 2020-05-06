@@ -31,7 +31,7 @@ Jsonix.Util.extend = function(destination, source) {
 
 		// REWORK
 		// Node.js
-		sourceIsEvt = typeof window !== 'undefined' && window !== null && typeof window.Event === "function" && source instanceof window.Event;
+		var sourceIsEvt = typeof window !== 'undefined' && window !== null && typeof window.Event === "function" && source instanceof window.Event;
 
 		if (!sourceIsEvt && source.hasOwnProperty && source.hasOwnProperty('toString')) {
 			destination.toString = source.toString;
@@ -39,6 +39,7 @@ Jsonix.Util.extend = function(destination, source) {
 	}
 	return destination;
 };
+
 Jsonix.Class = function() {
 	var Class = function() {
 		this.initialize.apply(this, arguments);
@@ -4396,7 +4397,7 @@ Jsonix.Schema.XSD.Base64Binary = Jsonix.Class(Jsonix.Schema.XSD.AnySimpleType, {
 	},
 	decode : function(text) {
 
-		input = text.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+		var input = text.replace(/[^A-Za-z0-9\+\/\=]/g, "");
 
 		var length = Math.floor(input.length / 4 * 3);
 		if (input.charAt(input.length - 1) === "=") {
@@ -5857,21 +5858,21 @@ Jsonix.Context = Jsonix
 					Jsonix.Util.Ensure.ensureObject(options);
 					if (Jsonix.Util.Type
 							.isObject(options.namespacePrefixes)) {
-						this.namespacePrefixes = 
+						this.namespacePrefixes =
 							Jsonix.Util.Type.cloneObject(options.namespacePrefixes, {});
 					}
 					if (Jsonix.Util.Type
 							.isBoolean(options.supportXsiType)) {
-						this.supportXsiType = options.supportXsiType; 
+						this.supportXsiType = options.supportXsiType;
 					}
 				}
-				
+
 				// Initialize prefix/namespace mapping
 				for (var ns in this.namespacePrefixes)
 				{
 					if (this.namespacePrefixes.hasOwnProperty(ns))
 					{
-						p = this.namespacePrefixes[ns];
+						var p = this.namespacePrefixes[ns];
 						this.prefixNamespaces[p] = ns;
 					}
 				}
@@ -5894,7 +5895,7 @@ Jsonix.Context = Jsonix
 					module = mapping;
 				} else {
 					mapping = Jsonix.Util.Type.cloneObject(mapping);
-					module = new this.mappingStyle.module(mapping, 
+					module = new this.mappingStyle.module(mapping,
 					{
 						mappingStyle : this.mappingStyle
 					});
@@ -6135,39 +6136,15 @@ Jsonix.Context = Jsonix
 					Jsonix.Schema.XSD.UnsignedShort.INSTANCE ],
 			CLASS_NAME : 'Jsonix.Context'
 		});
+
 	// Complete Jsonix script is included above
 	return { Jsonix: Jsonix };
 };
 
-// If the require function exists ...
-if (typeof require === 'function') {
-	// ... but the define function does not exists
-	if (typeof define !== 'function') {
-		// Load the define function via amdefine
-		var define = require('amdefine')(module);
-		// If we're not in browser
-		if (typeof window === 'undefined')
-		{
-			// Require xmldom, xmlhttprequest and fs
-			define(["xmldom", "xmlhttprequest", "fs"], _jsonix_factory);
-		}
-		else
-		{
-			// We're probably in browser, maybe browserify
-			// Do not require xmldom, xmlhttprequest as they'r provided by the browser
-			// Do not require fs since file system is not available anyway
-			define([], _jsonix_factory);
-		}
-	}
-	else {
-		// Otherwise assume we're in the browser/RequireJS environment
-		// Load the module without xmldom and xmlhttprequests dependencies
-		define([], _jsonix_factory);
-	}
-}
-// If the require function does not exists, we're not in Node.js and therefore in browser environment
-else
-{
-	// Just call the factory and set Jsonix as global.
+if (typeof module !== 'undefined') {
+	module.exports = _jsonix_factory(require('xmldom'), require('xmlhttprequest'), require('fs'));
+} else {
+	// must be a browser?
 	var Jsonix = _jsonix_factory().Jsonix;
 }
+

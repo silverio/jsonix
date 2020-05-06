@@ -1,0 +1,25 @@
+name: Build, Test, Deploy
+on:
+    push:
+
+jobs:
+    build:
+        name: Build, Test
+        # This job runs on Linux
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+
+            - run: ./short-build.sh
+
+            - name: artifact - npm tarball
+              uses: actions/upload-artifact@v2
+              with:
+                  name: npm-tarball
+                  path: nodejs/scripts/jsonix-lxb-*.tgz
+
+            - run: npm publish nodejs/scripts/jsonix-lxb-*.tgz
+              if: github.event.pull_request.merged == true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

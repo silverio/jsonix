@@ -25,21 +25,21 @@ Jsonix.Context = Jsonix
 					Jsonix.Util.Ensure.ensureObject(options);
 					if (Jsonix.Util.Type
 							.isObject(options.namespacePrefixes)) {
-						this.namespacePrefixes = 
+						this.namespacePrefixes =
 							Jsonix.Util.Type.cloneObject(options.namespacePrefixes, {});
 					}
 					if (Jsonix.Util.Type
 							.isBoolean(options.supportXsiType)) {
-						this.supportXsiType = options.supportXsiType; 
+						this.supportXsiType = options.supportXsiType;
 					}
 				}
-				
+
 				// Initialize prefix/namespace mapping
 				for (var ns in this.namespacePrefixes)
 				{
 					if (this.namespacePrefixes.hasOwnProperty(ns))
 					{
-						p = this.namespacePrefixes[ns];
+						var p = this.namespacePrefixes[ns];
 						this.prefixNamespaces[p] = ns;
 					}
 				}
@@ -62,7 +62,7 @@ Jsonix.Context = Jsonix
 					module = mapping;
 				} else {
 					mapping = Jsonix.Util.Type.cloneObject(mapping);
-					module = new this.mappingStyle.module(mapping, 
+					module = new this.mappingStyle.module(mapping,
 					{
 						mappingStyle : this.mappingStyle
 					});

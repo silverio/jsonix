@@ -1,6 +1,9 @@
 {
-	"name" : "jsonix",
+	"name" : "jsonix-lxb",
 	"version" : "${project.version}",
+	"publishConfig": {
+		"access": "public"
+	},
 	"description" : "Jsonix (JSON interfaces for XML) is a JavaScript library which allows converting between XML and JSON structures.",
 	"keywords" : [ "json", "xml", "unmarshal", "unmarshalling", "marshal",
 			"marshalling", "parse", "parsing", "serialize", "serializing",
