@@ -22,9 +22,9 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: npm-tarball
-                  path: nodejs/scripts/jsonix-lxb-*.tgz
+                  path: nodejs/scripts/jsonix-logixboard-*.tgz
 
-            - run: npm publish nodejs/scripts/jsonix-lxb-*.tgz
+            - run: npm publish nodejs/scripts/jsonix-logixboard-*.tgz
               if: github.ref == 'refs/heads/master'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

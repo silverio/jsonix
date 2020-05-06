@@ -1,5 +1,5 @@
 {
-	"name" : "jsonix-lxb",
+	"name" : "jsonix-logixboard",
 	"version" : "${project.version}",
 	"publishConfig": {
 		"access": "public"
