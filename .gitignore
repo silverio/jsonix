@@ -9,3 +9,5 @@ target
 *.iml
 .classpath
 rm_ide_settings.sh
+
+nodejs/scripts/run-compiler.sh

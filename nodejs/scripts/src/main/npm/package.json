@@ -1,6 +1,9 @@
 {
 	"name" : "jsonix-logixboard",
 	"version" : "${project.version}",
+	"bin" : {
+		"jsonix-schema-compiler" : "./run-compiler.sh"
+	},
 	"publishConfig": {
 		"access": "public"
 	},
