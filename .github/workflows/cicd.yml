@@ -10,6 +10,12 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
+              # Setup .npmrc file to publish to npm
+            - uses: actions/setup-node@v1
+              with:
+                node-version: '12.x'
+                registry-url: 'https://registry.npmjs.org'
+
             - run: ./short-build.sh
 
             - name: artifact - npm tarball
@@ -19,7 +25,7 @@ jobs:
                   path: nodejs/scripts/jsonix-lxb-*.tgz
 
             - run: npm publish nodejs/scripts/jsonix-lxb-*.tgz
-              if: github.event.pull_request.merged == true
+              if: github.ref == 'refs/heads/master'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
