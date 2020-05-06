@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-java -jar $(dirname $0)/../jsonix-logixboard/lib/jsonix-schema-compiler-full.jar $@
+# resolves symlinks in case of hoisted monorepo installation
+java -jar $(dirname $(readlink -f $0))/../jsonix-logixboard/lib/jsonix-schema-compiler-full.jar $@

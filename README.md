@@ -20,8 +20,8 @@ Here's a working example for the [purchase order schema](http://www.w3.org/TR/xm
 ### Generate mappings
 
 ```
-java -jar node_modules/jsonix/lib/jsonix-schema-compiler-full.jar
-  -d mappings -p PO purchaseorder.xsd
+# requires `java` to be in $PATH
+npx jsonix-schema-compiler -d mappings -p PO purchaseorder.xsd
 ```
 
 Generates mappings for the `purchaseorder.xsd` schema in the `mappings\PO.js`; mappings will be placed in the variable `PO`.
@@ -53,7 +53,7 @@ unmarshaller.unmarshalURL('po.xml',
 ```
 
 You can also `unmarshalString`, `unmarshalDocument` and (under node.js) `unmarshalFile`.
-    
+
 ### Serialize JS as XML
 
 ```javascript
@@ -92,7 +92,7 @@ You can also `marshalString`.
 * Bidirectional (XML -> JS as well as JS -> XML)
 * Implements *marshalling* (serializing the JavaScript object into XML)
   * Supports string data and DOM nodes as result
-* Implements *unmarshalling* (parsing a JavaScript object from XML)	
+* Implements *unmarshalling* (parsing a JavaScript object from XML)
   * Supports string data, DOM nodes, URLs or files (with Node.js) as source
 * Driven by declarative XML/JS mappings which control how JavaScript object is converted into XML or vice versa
 * Mappings can be automatically generated based on the XML Schema
@@ -117,5 +117,5 @@ You can also `marshalString`.
 
 ![Logo WebStorm](images/logo_WebStorm.png)
 
-Jsonix is developed with [WebStorm](https://www.jetbrains.com/webstorm/), the smartest JavaScript IDE.  
+Jsonix is developed with [WebStorm](https://www.jetbrains.com/webstorm/), the smartest JavaScript IDE.
 Many thanks to [JetBrains](https://www.jetbrains.com) for providing a free open-source license for Jsonix development.
