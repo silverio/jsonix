@@ -53,8 +53,8 @@ module.exports = {
 		var POJsonSchema = JSON.parse(fs.readFileSync('./mappings/PO.jsonschema').toString());
 
 		var ajv = new Ajv();
-		ajv.addSchema(XMLSchemaJsonSchema, 'http://www.jsonix.org/jsonschemas/w3c/2001/XMLSchema.jsonschema');
-		ajv.addSchema(JsonixJsonSchema, 'http://www.jsonix.org/jsonschemas/jsonix/Jsonix.jsonschema');
+		ajv.addSchema(XMLSchemaJsonSchema, 'https://raw.githubusercontent.com/logixboard/jsonix/master/nodejs/scripts/jsonschemas/w3c/2001/XMLSchema.jsonschema');
+		ajv.addSchema(JsonixJsonSchema, 'https://raw.githubusercontent.com/logixboard/jsonix/master/nodejs/scripts/jsonschemas/jsonix/Jsonix.jsonschema');
 		var validate = ajv.compile(POJsonSchema);
 
 		var po = JSON.parse(fs.readFileSync("tests/po.json").toString());

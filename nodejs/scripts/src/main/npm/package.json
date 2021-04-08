@@ -17,7 +17,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/highsource/jsonix.git"
+		"url": "git://github.com/logixboard/jsonix.git"
 	},
 	"licenses" : [ {
 		"type" : "BSD-3-Clause",
@@ -32,10 +32,6 @@
 		"url" : "https://github.com/deoxxa"
 	} ],
 	"main" : "jsonix.js",
-	"repository" : {
-		"type" : "git",
-		"url" : "http://github.com/highsource/jsonix.git"
-	},
 	"scripts" : {
 		"test" : "nodeunit tests/tests.js"
 	},
