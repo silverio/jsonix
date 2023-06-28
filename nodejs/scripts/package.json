@@ -1,6 +1,6 @@
 {
 	"name" : "jsonix-logixboard",
-	"version" : "3.1.2",
+	"version" : "3.1.3",
 	"bin" : {
 		"jsonix-schema-compiler" : "./run-compiler.sh"
 	},
@@ -37,7 +37,7 @@
 	},
 	"dependencies" : {
 		"amdefine" : "0.x.x",
-		"xmldom" : ">=0.1.21",
+		"@xmldom/xmldom" : "0.8.8",
 		"xmlhttprequest" : "1.x.x"
 	},
 	"devDependencies" : {

@@ -6142,7 +6142,7 @@ Jsonix.Context = Jsonix
 };
 
 if (typeof module !== 'undefined') {
-	module.exports = _jsonix_factory(require('xmldom'), require('xmlhttprequest'), require('fs'));
+	module.exports = _jsonix_factory(require('@xmldom/xmldom'), require('xmlhttprequest'), require('fs'));
 } else {
 	// must be a browser?
 	var Jsonix = _jsonix_factory().Jsonix;

@@ -11,3 +11,5 @@ target
 rm_ide_settings.sh
 
 nodejs/scripts/run-compiler.sh
+nodejs/scripts/package
+.DS_Store

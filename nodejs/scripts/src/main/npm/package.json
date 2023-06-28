@@ -37,7 +37,7 @@
 	},
 	"dependencies" : {
 		"amdefine" : "0.x.x",
-		"xmldom" : ">=0.1.21",
+		"@xmldom/xmldom" : "0.8.8",
 		"xmlhttprequest" : "1.x.x"
 	},
 	"devDependencies" : {
